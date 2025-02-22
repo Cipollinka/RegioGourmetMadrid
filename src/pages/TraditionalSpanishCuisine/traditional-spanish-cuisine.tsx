@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import traditionalSpanishCuisine from '../../assets/Data/traditional-spanish-cuisine.ts';
+import openMap from 'react-native-open-maps';
 import {useUser} from '../../user';
 
 export const TraditionalSpanishCuisine = () => {
@@ -42,6 +43,10 @@ export const TraditionalSpanishCuisine = () => {
     Share.share(shareOptions)
       .then(res => console.log(res))
       .catch(err => console.log(err));
+  };
+
+  const handleSetRoute = (latitude: number, longitude: number) => {
+    openMap({latitude, longitude, zoom: 15, travelType: 'drive'});
   };
 
   console.log('User Saved', user?.saved);
@@ -107,7 +112,13 @@ export const TraditionalSpanishCuisine = () => {
                       </View>
                       <View
                         style={{flexDirection: 'row', gap: 21, marginTop: 10}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() =>
+                            handleSetRoute(
+                              item.coordinates.latitude,
+                              item.coordinates.longitude,
+                            )
+                          }>
                           <LinearGradient
                             style={{
                               width: 153,

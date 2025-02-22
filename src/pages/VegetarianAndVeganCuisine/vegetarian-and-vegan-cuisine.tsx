@@ -11,6 +11,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import vegan from '../../assets/Data/vegan.ts';
 import {useUser} from '../../user';
+import openMap from 'react-native-open-maps';
 
 export const VegetarianAndVeganCuisine = () => {
   const {user, saveUser} = useUser();
@@ -42,6 +43,10 @@ export const VegetarianAndVeganCuisine = () => {
     Share.share(shareOptions)
       .then(res => console.log(res))
       .catch(err => console.log(err));
+  };
+
+  const handleSetRoute = (latitude: number, longitude: number) => {
+    openMap({latitude, longitude, zoom: 15, travelType: 'drive'});
   };
 
   console.log('User Saved', user?.saved);
@@ -107,7 +112,13 @@ export const VegetarianAndVeganCuisine = () => {
                       </View>
                       <View
                         style={{flexDirection: 'row', gap: 21, marginTop: 10}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() =>
+                            handleSetRoute(
+                              item.coordinates.latitude,
+                              item.coordinates.longitude,
+                            )
+                          }>
                           <LinearGradient
                             style={{
                               width: 153,

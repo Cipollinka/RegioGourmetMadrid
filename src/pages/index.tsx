@@ -9,7 +9,7 @@ import {CulinarySave} from './CulinarySave/culinary-save.tsx';
 import {TraditionalSpanishCuisine} from './TraditionalSpanishCuisine/traditional-spanish-cuisine.tsx';
 import {ModernAndFusionCuisine} from './ModernAndFusionCuisine/modern-and-fusion-cuisine.tsx';
 import {VegetarianAndVeganCuisine} from './VegetarianAndVeganCuisine/vegetarian-and-vegan-cuisine.tsx';
-import { Details } from "./CulinaryTraditions/details.tsx";
+import {Details} from './CulinaryTraditions/details.tsx';
 
 export const Main = () => {
   const [activeScreen, setActiveScreen] = useState('spanishCuisine');
@@ -69,7 +69,10 @@ export const Main = () => {
 
   return (
     <View>
-      <ImageBackground source={backgroundImage()} resizeMode='stretch' style={{width: '100%'}}>
+      <ImageBackground
+        source={backgroundImage()}
+        resizeMode="stretch"
+        style={{width: '100%'}}>
         <View style={styles.container}>
           {isCuisinePage ? renderPageCuisine() : renderPage()}
           <FooterMenu

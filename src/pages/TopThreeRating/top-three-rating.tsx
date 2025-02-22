@@ -11,6 +11,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {useUser} from '../../user';
 import {topLocations} from '../../assets/Data/top-three.ts';
+import openMap from 'react-native-open-maps';
 
 export const TopThreeRating = () => {
   const {user, saveUser} = useUser();
@@ -43,6 +44,10 @@ export const TopThreeRating = () => {
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
+
+  const handleSetRoute = (latitude: number, longitude: number) => {
+    openMap({latitude, longitude, zoom: 15, travelType: 'drive'});
+  };
   return (
     <View>
       <View style={{alignItems: 'center', gap: 50, marginTop: 50}}>
@@ -68,7 +73,9 @@ export const TopThreeRating = () => {
                     <View style={styles.item_text_container}>
                       <View style={{gap: 3, marginBottom: 10}}>
                         <Text style={styles.item_title}>{item.name}</Text>
-                        <Text style={styles.description}>{item.description}</Text>
+                        <Text style={styles.description}>
+                          {item.description}
+                        </Text>
                       </View>
                       <View>
                         <SafeAreaView style={styles.item_list}>
@@ -98,7 +105,13 @@ export const TopThreeRating = () => {
                       </View>
                       <View
                         style={{flexDirection: 'row', gap: 21, marginTop: 10}}>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() =>
+                            handleSetRoute(
+                              item.coordinates.latitude,
+                              item.coordinates.longitude,
+                            )
+                          }>
                           <LinearGradient
                             style={{
                               width: 153,

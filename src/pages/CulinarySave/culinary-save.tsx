@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {useUser} from '../../user';
 import LinearGradient from 'react-native-linear-gradient';
+import openMap from 'react-native-open-maps';
 
 export const CulinarySave = () => {
   const {user, saveUser} = useUser();
@@ -36,9 +37,22 @@ export const CulinarySave = () => {
       .catch(err => console.log(err));
   };
 
+  const handleSetRoute = (latitude: number, longitude: number) => {
+    openMap({latitude, longitude, zoom: 15, travelType: 'drive'});
+  };
+
   return (
     <View>
-      <Text style={{fontWeight: '600', fontSize: 22, color: 'rgba(231, 197, 99, 1)', textAlign: 'center', marginTop: 50}}>Saved</Text>
+      <Text
+        style={{
+          fontWeight: '600',
+          fontSize: 22,
+          color: 'rgba(231, 197, 99, 1)',
+          textAlign: 'center',
+          marginTop: 50,
+        }}>
+        Saved
+      </Text>
       <View style={{height: 540, marginTop: 50}}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.items_container}>
@@ -83,7 +97,13 @@ export const CulinarySave = () => {
                     </View>
                     <View
                       style={{flexDirection: 'row', gap: 21, marginTop: 10}}>
-                      <TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() =>
+                          handleSetRoute(
+                            item.coordinates.latitude,
+                            item.coordinates.longitude,
+                          )
+                        }>
                         <LinearGradient
                           style={{
                             width: 153,
