@@ -18,9 +18,8 @@ interface CulinaryTraditionsProps {
 export const CulinaryTraditions = ({nextPage}: CulinaryTraditionsProps) => {
   const handleShareItem = (item: any) => {
     const shareOptions = {
-      title: item.name,
-      message: item.description,
-      url: item.image, // Можна додати зображення або інший контент
+      title: item.title,
+      message: item.introduction,
     };
 
     Share.share(shareOptions)
