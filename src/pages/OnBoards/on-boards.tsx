@@ -49,6 +49,10 @@ export const OnboardingScreen = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const navigation = useNavigation();
 
+  if (user?.onBoards?.includes(1)) {
+    navigation.navigate(ScreenName.Main);
+  }
+
   const handleNext = () => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
